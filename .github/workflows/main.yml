@@ -1,3 +1,103 @@
-              - name: Build iOS Action
-                uses: sparkfabrik/ios-build-action@v2.3.2
-            
+name: "Build iOS Action"
+author: "SparkFabrik"
+branding:
+  icon: "smartphone"
+  color: "white"
+description: "Build iOS project (.xcodeproj, .xcworkspace), export .ipa, optional upload to BrowserStack App Live."
+inputs:
+  upload-to-testflight:
+    description: "Upload to TestFlight."
+    required: false
+    default: false
+  increment-build-number:
+    description: "Increment build number."
+    required: false
+    default: false
+  project-path:
+    description: "Project path"
+    required: true
+  team-id:
+    description: "Team id"
+    required: true
+  team-name:
+    description: "Team name"
+    required: true
+  apple-key-id:
+    description: "Apple key id"
+    required: true
+  apple-key-issuer-id:
+    description: "Apple key issuer id"
+    required: true
+  apple-key-content:
+    description: "Apple key content"
+    required: true
+  workspace-path:
+    description: "Workspace path"
+    required: false
+    default: ""
+  export-method:
+    description: "Choose app-store, ad-hoc, package, enterprise, development, or developer-id"
+    required: false
+    default: "app-store"
+  configuration:
+    description: "For example, Debug, Release"
+    required: false
+    default: "Release"
+  output-path:
+    description: "Output path of ipa"
+    required: false
+    default: "output.ipa"
+  scheme:
+    description: "Scheme"
+    required: false
+    default: ""
+  update-targets:
+    description: "Targets to be updated with mobileprovision, code signing identity, etc"
+    required: false
+    default: ""
+  build-pods:
+    description: "Boolean to tell if `pod install` should be run during build."
+    required: false
+    default: false
+  pods-path:
+    description: "The path to the Podfile."
+    required: false
+    default: "Podfile"
+  match-password:
+    description: "The password to decrypt certificates."
+    required: true
+  match-git-url:
+    description: "The git url where match can find the certificates."
+    required: true
+  match-git-basic-authorization:
+    description: "The basic authorization to access the repository."
+    required: true
+  match-build-type:
+    description: "The build type to use when building the app."
+    required: true
+  browserstack-upload:
+    description: "Boolean to tell the Action to upload the .ipa to Browserstack App Live after the build."
+    required: false
+    default: false
+  browserstack-username:
+    description: "Browserstack username (required if browserstack-upload == true)"
+    required: false
+    default: ""
+  browserstack-access-key:
+    description: "Browserstack access key (required if browserstack-upload == true)"
+    required: false
+    default: ""
+  fastlane-version:
+    description: "Specify the Fastlane version you wish to use"
+    default: "2.213.0"
+    required: false
+  fastlane-env:
+    description: "Name of the env file name to pass to fastlane --env"
+    required: false
+    default: ""
+  ios-app-id:
+    description: "The iOS application identifier; useful to sync a specific provisioning profile"
+    required: false
+runs:
+  using: "node16"
+  main: "dist/index.js"
